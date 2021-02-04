@@ -23,17 +23,18 @@ draw_pixel(ch8::byte display[ch8::H][ch8::W])
 using namespace std::chrono_literals;
 
 int
-main(int, char*[])
+main(int argc, char const* argv[])
 {
     auto chip = ch8::computer();
+
+    const char* game_path = argc >= 2 ? argv[1] : ".samples/Pong.ch8";
 
     initscr();
     cbreak();
     noecho();
     nodelay(stdscr, true);
 
-    auto file =
-      std::ifstream("./invaders.ch8", std::ios::binary | std::ios::ate);
+    auto file = std::ifstream(game_path, std::ios::binary | std::ios::ate);
     if (!file.is_open())
         std::terminate();
 
